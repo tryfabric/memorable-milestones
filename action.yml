@@ -1,0 +1,16 @@
+name: 'Close milestones that are at 100%'
+description: 'Automatically closes milestones that have no more open issues/PRs ✨'
+author: 'Instantish'
+branding:
+  icon: 'book'  
+  color: 'green'
+inputs:
+  repo-token:
+    description: 'Token for the repository. Can be passed in using `{{ secrets.GITHUB_TOKEN }}`.'
+    required: true
+  debug-only:
+    description: 'Run the processor in debug mode without actually performing any operations on live milestones.'
+    default: false
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
