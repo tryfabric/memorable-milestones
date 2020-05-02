@@ -71,7 +71,13 @@ Here are the names, followed by first due date (future due dates are a multiple 
 `☂️  Umbrella` - August 20 2020
 `🍉  Watermelon` - August 27 2020
 
-### Usage
+
+## Functionality
+
+This Action only creates or closes milestones (when they get to 100%). That means it doesn't
+delete your current milestones or change their names.
+
+## Usage
 
 Basic (runs every 20 minutes):
 ```yaml
@@ -92,11 +98,11 @@ jobs:
 
 See [action.yml](./action.yml) for the full list of options.
 
-### Debugging
+## Debugging
 
 To see debug ouput from this action, you must set the secret `ACTIONS_STEP_DEBUG` to `true` in your repository. You can run this action in debug only mode (no actions will be taken on your milestones) by passing `debug-only` `true` as an argument to the action.
 
-### Building and testing
+## Building and testing
 
 Install the dependencies
 ```bash
@@ -113,7 +119,7 @@ Run the tests :heavy_check_mark:
 $ npm test
 ```
 
-### More Resources
+## More Resources
 
 For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️
 
