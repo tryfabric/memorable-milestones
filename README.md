@@ -11,7 +11,7 @@ Assigns due dates to milestones (on Thursdays).
 
 **Benefits:**
 
-✅ one-time setup, with no config needed
+✅ easy one-time setup, with no config needed
 
 ✅ automatically keeps milestones up to date
 
