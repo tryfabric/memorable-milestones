@@ -7,7 +7,7 @@ An opinionated GitHub Action that puts your milestones on auto-pilot, using memo
 
 Creates weekly milestones, rotating between 16 pre-selected and memorable emoji names.
 
-Assigns due dates to milestones (on Thursdays), and closes milestones that have no more open issues or PRs.
+Assigns due dates to milestones (on Thursdays).
 
 **Benefits:**
 
@@ -18,6 +18,8 @@ Assigns due dates to milestones (on Thursdays), and closes milestones that have 
 ✅ you don't have to come up with your own memorable names
 
 ✅ everyone is on the same schedule, so cross-team collaboration is easy
+
+✅ even closes milestones that have no more open issues or PRs, so you don't have to
 
 ## Milestones
 
