@@ -9,7 +9,7 @@ Creates weekly milestones, rotating between 16 pre-selected and memorable emoji 
 
 Assigns due dates to milestones (on Thursdays), and closes milestones that have no more open issues or PRs.
 
-Benefits:
+**Benefits:**
 
 ✅ one-time setup, with no config needed
 
