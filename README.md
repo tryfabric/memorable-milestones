@@ -92,7 +92,11 @@ Here are the names, followed by first due date (future due dates are a multiple 
 ## Functionality
 
 This Action only creates or closes milestones (when they get to 100%). That means it doesn't
-delete your current milestones or change their names.
+delete your current milestones or change their names or due dates. If a milestone with the exact same
+name exists, it does not recreate it or edit it.
+
+Note that if you have over 100 milestones, this won't work reliably because we limit the number of
+operations.
 
 ## Usage
 

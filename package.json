@@ -28,7 +28,10 @@
     "@actions/core": "^1.2.3",
     "@actions/github": "^2.1.1",
     "@octokit/rest": "^16.43.1",
-    "semver": "^6.1.1"
+    "@types/sinon": "^9.0.0",
+    "moment": "^2.25.1",
+    "semver": "^6.1.1",
+    "sinon": "^9.0.2"
   },
   "devDependencies": {
     "@types/semver": "^6.0.0",
