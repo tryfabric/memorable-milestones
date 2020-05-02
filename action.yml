@@ -1,9 +1,10 @@
-name: 'Close milestones that are at 100%'
-description: 'Automatically closes milestones that have no more open issues/PRs ✨'
+name: 'Memorable Milestones'
+description: '
+An opinionated GitHub Action that puts your milestones on auto-pilot, using memorable emoji names ✨'
 author: 'Instantish'
 branding:
-  icon: 'book'  
-  color: 'green'
+  icon: 'book'
+  color: 'white'
 inputs:
   repo-token:
     description: 'Token for the repository. Can be passed in using `{{ secrets.GITHUB_TOKEN }}`.'
