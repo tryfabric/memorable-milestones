@@ -9,6 +9,16 @@ Creates weekly milestones, rotating between 16 pre-selected and memorable emoji 
 
 Assigns due dates to milestones (on Thursdays), and closes milestones that are at 100%.
 
+Benefits:
+
+✅ one-time setup, with no config needed
+
+✅ automatically keeps milestones up to date
+
+✅ you don't have to come up with your own memorable names
+
+✅ everyone is on the same schedule, so cross-team collaboration is easy
+
 ## Milestones
 
 There are 16 weekly milestones. Names and due dates are pre-determined, so there's no setup!
