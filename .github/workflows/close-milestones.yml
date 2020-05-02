@@ -1,14 +1,14 @@
-name: "Close finished milestones"
+name: "Memorable milestones"
 on:
   schedule:
   - cron: 0/5 * * * *
 
 jobs:
-  milestone-closer:
+  memorable-milestones:
     runs-on: ubuntu-latest
     steps:
-    - name: Milestone closer message
-      run: echo Checking for milestones to close
+    - name: Memorable milestones message
+      run: echo Checking for milestones to create or close
     - uses: actions/checkout@v2
     - uses: ./
       with:
