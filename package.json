@@ -28,15 +28,13 @@
     "@actions/core": "^1.2.3",
     "@actions/github": "^2.1.1",
     "@octokit/rest": "^16.43.1",
-    "@types/sinon": "^9.0.0",
     "moment": "^2.25.1",
-    "semver": "^6.1.1",
-    "sinon": "^9.0.2"
+    "semver": "^6.1.1"
   },
   "devDependencies": {
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.37",
     "@types/semver": "^6.0.0",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.7.12",
     "@typescript-eslint/parser": "^2.8.0",
     "@zeit/ncc": "^0.20.5",
     "eslint": "^5.16.0",
@@ -46,7 +44,7 @@
     "jest-circus": "^24.9.0",
     "js-yaml": "^3.13.1",
     "prettier": "^1.19.1",
-    "ts-jest": "^24.3.0",
-    "typescript": "^3.8.3"
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.6.4"
   }
 }
