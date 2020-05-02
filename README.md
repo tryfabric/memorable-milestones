@@ -1,4 +1,5 @@
 # Memorable Milestones
+🍎🚲☕️🦆🥚🥏🍇🐴🦞🗺🍊🦔☀️🎾☂️🍉
 
 Opinionated GitHub Actions that puts your milestones on auto-pilot, using memorable emoji names.
 You won't have to create or close milestones again.
