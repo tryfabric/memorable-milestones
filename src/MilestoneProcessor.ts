@@ -201,11 +201,7 @@ export class MilestoneProcessor {
         }
       }
 
-      core.debug(
-        `Milestones to create: ${this.milestonesToAdd
-          .map(m => m.title)
-          .join(', ')}`
-      );
+      core.debug(`Milestones to create: ${this.milestonesToAdd.length}`);
 
       // Create the milestones.
       if (this.options.debugOnly) {
