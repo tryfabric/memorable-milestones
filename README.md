@@ -13,6 +13,10 @@ Assigns due dates to milestones (on Thursdays), and closes milestones that are a
 
 There are 16 weekly milestones. Names and due dates are pre-determined, so there's no setup!
 
+The nice thing about this is that these milestones are **global**, meaning August 27 2020 is
+the `🍉  Watermelon` sprint for everyone using this action. So it's easy to collaborate across
+teams.
+
 ### Due dates
 
 Milestones are weekly and the action will create 7 of them for 7 weeks out. The due dates are each Thursday.
