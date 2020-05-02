@@ -1,5 +1,5 @@
 # Memorable Milestones
-🍎🚲☕️🦆🥚🥏🍇🐴🦞🗺🍊🦔☀️🎾☂️🍉
+🍎🚲🌵🦆🥚🥏🍇🐴🦞🗺🍊🦔☀️🎾☂️🍉
 
 An opinionated GitHub Action that puts your milestones on auto-pilot, using memorable emoji names.
 
@@ -73,7 +73,7 @@ Here are the names, followed by first due date (future due dates are a multiple 
 
 `🍎  Apple` - May 14 2020
 `🚲  Bike` - May 21 2020
-`☕️  Coffee` - May 28 2020
+`🌵  Cactus` - May 28 2020
 `🦆  Duck` - June 4 2020 (@marissamarym's bday 🧁)
 `🥚  Egg` - June 11 2020
 `🥏  Frisbee` - June 18 2020
