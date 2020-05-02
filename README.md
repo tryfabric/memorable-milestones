@@ -2,7 +2,8 @@
 🍎🚲☕️🦆🥚🥏🍇🐴🦞🗺🍊🦔☀️🎾☂️🍉
 
 Opinionated GitHub Actions that puts your milestones on auto-pilot, using memorable emoji names.
-You won't have to create or close milestones again.
+
+**You won't have to create or close milestones again.**
 
 Creates weekly milestones, rotating between 16 pre-selected and memorable emoji names.
 
