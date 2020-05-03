@@ -146,4 +146,4 @@ $ npm test
 
 ## More Resources
 
-For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️
+For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️ or check out [this doc](https://docs.google.com/document/d/1b2vrpmclGQqw7Prjm2o5a13J-orLhfSqffvY7SOmZi8/edit) for some thoughts on GitHub labels for small teams.
