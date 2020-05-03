@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "description": "Puts milestones on auto-pilot with memorable emoji names",
-  "main": "lib/main.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
