@@ -101,7 +101,7 @@ export class MilestoneProcessor {
     if (milestones.length <= 0) {
       await this._assertMilestones();
 
-      core.debug('No more milestones found to process. Exiting.');
+      core.info('No more milestones found to process. Exiting.');
       return {
         operationsLeft: this.operationsLeft,
         milestonesToAdd: this.milestonesToAdd
@@ -113,7 +113,7 @@ export class MilestoneProcessor {
         milestone.title
       );
 
-      core.debug(`Checking global milestone: ${globalMilestoneId}`);
+      core.info(`Checking global milestone: ${globalMilestoneId}`);
       if (
         globalMilestoneId &&
         !this.currentGlobalMilestoneIds.includes(globalMilestoneId)
@@ -127,18 +127,18 @@ export class MilestoneProcessor {
       const updatedAt = milestone.updated_at;
       const openIssues = milestone.open_issues;
 
-      core.debug(
+      core.info(
         `Found milestone: milestone #${number} - ${title} last updated ${updatedAt}`
       );
 
       if (totalIssues < MIN_ISSUES_IN_MILESTONE) {
-        core.debug(
+        core.info(
           `Skipping ${title} because it has less than ${MIN_ISSUES_IN_MILESTONE} issues`
         );
         continue;
       }
       if (openIssues > 0) {
-        core.debug(`Skipping ${title} because it has open issues/prs`);
+        core.info(`Skipping ${title} because it has open issues/prs`);
         continue;
       }
       // Close instantly because there isn't a good way to tag milestones
@@ -152,7 +152,7 @@ export class MilestoneProcessor {
 
   // Enforce list of global milestones
   private async _assertMilestones() {
-    core.debug('Asserting milestones');
+    core.info('Asserting milestones');
     const globalMilestonesLeft: GlobalMilestone[] = [];
 
     for (const globalMilestone of GLOBAL_MILESTONES_MAP.values()) {
@@ -161,7 +161,7 @@ export class MilestoneProcessor {
       }
     }
 
-    core.debug(
+    core.info(
       `Global milestones left: ${globalMilestonesLeft
         .map(m => m.id)
         .join(', ')}`
@@ -201,7 +201,7 @@ export class MilestoneProcessor {
         }
       }
 
-      core.debug(`Milestones to create: ${this.milestonesToAdd.length}`);
+      core.info(`Milestones to create: ${this.milestonesToAdd.length}`);
 
       // Create the milestones.
       if (this.options.debugOnly) {
@@ -248,7 +248,7 @@ export class MilestoneProcessor {
 
   /// Close an milestone
   private async closeMilestone(milestone: Milestone): Promise<void> {
-    core.debug(`Closing milestone #${milestone.number} - ${milestone.title}`);
+    core.info(`Closing milestone #${milestone.number} - ${milestone.title}`);
 
     this.closedMilestones.push(milestone);
 
