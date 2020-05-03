@@ -100,7 +100,9 @@ operations.
 
 ## Usage
 
-Basic (runs every 20 minutes):
+Actions are "individual tasks that you can combine to create jobs and customize your workflow." You can use them by creating a file that ends in `.yml` in the `.github` directory of your repo. A nice convention is to create a directory within `.github` called `workflows`, but you can set it up any way you like.
+
+Copy the following verbatim into a `.yml` workflow file into your repo (to run every 20 minutes):
 ```yaml
 name: "Memorable milestones"
 on:
@@ -118,6 +120,8 @@ jobs:
 
 
 See [action.yml](./action.yml) for the full list of options.
+
+If you have questions about setting this up, feel free to reach out to hi@itsinstantish.com with subject line "Question about GitHub Action" 😊
 
 ## Debugging
 
@@ -143,5 +147,3 @@ $ npm test
 ## More Resources
 
 For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️
-
-If you have questions about setting this up, feel free to reach out to hi@itsinstantish.com with subject line "Question about GitHub Action" 😊
