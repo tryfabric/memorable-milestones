@@ -7,7 +7,7 @@ An opinionated GitHub Action that puts your milestones on auto-pilot, using memo
 
 Generates weekly milestones (up to 8 weeks out), rotating between 16 pre-selected and memorable emoji names.
 
-Assigns due dates to milestones (on Thursdays).
+All milestones have due dates, every Thursday.
 
 Check out this project's [milestones page](https://github.com/instantish/memorable-milestones/milestones) to see what the generated milestones look like.
 
