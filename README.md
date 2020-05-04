@@ -11,6 +11,9 @@ All milestones have due dates, every Thursday.
 
 Check out this project's [milestones page](https://github.com/instantish/memorable-milestones/milestones) to see what the generated milestones look like.
 
+![Milestones](https://user-images.githubusercontent.com/1459660/81017934-4539da00-8e18-11ea-8dc0-3af3b1474944.png)
+
+
 **Benefits:**
 
 ✅ easy one-time setup, with no config needed
