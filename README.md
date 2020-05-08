@@ -100,8 +100,7 @@ This Action only creates or closes milestones (when they get to 100%). That mean
 delete your current milestones or change their names or due dates. If a milestone with the exact same
 name exists, it does not recreate it or edit it.
 
-Note that if you have over 100 milestones, this won't work reliably because we limit the number of
-operations.
+Have a holiday coming up or skipping a milestone? Just close it and it won't be recreated.
 
 ## Usage
 
