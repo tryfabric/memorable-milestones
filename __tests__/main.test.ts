@@ -7,7 +7,11 @@ import {
   MilestoneProcessor,
   MilestoneProcessorOptions
 } from '../src/MilestoneProcessor';
-import {Milestone} from '../src/constants';
+import {
+  Milestone,
+  GlobalMilestone,
+  GLOBAL_MILESTONES_MAP
+} from '../src/constants';
 
 function generateMilestone(
   id: number,
@@ -38,12 +42,18 @@ const DefaultProcessorOptions: MilestoneProcessorOptions = {
   debugOnly: true
 };
 
+const DUCK = GLOBAL_MILESTONES_MAP.get('DUCK');
+const LOBSTER = GLOBAL_MILESTONES_MAP.get('LOBSTER');
+const MAP = GLOBAL_MILESTONES_MAP.get('MAP');
+const ORANGE = GLOBAL_MILESTONES_MAP.get('ORANGE');
+const PORCUPINE = GLOBAL_MILESTONES_MAP.get('PORCUPINE');
+const SUN = GLOBAL_MILESTONES_MAP.get('SUN');
+const TENNIS = GLOBAL_MILESTONES_MAP.get('TENNIS');
+const UMBRELLA = GLOBAL_MILESTONES_MAP.get('UMBRELLA');
+
 test('empty milestone list results in 8 created', async () => {
   // June 1 2020
-  const now = moment
-    .utc(0)
-    .add(50, 'years')
-    .add(5, 'months');
+  const now = DUCK && DUCK.firstDueDate.clone().subtract(3, 'days');
 
   const processor = new MilestoneProcessor(
     DefaultProcessorOptions,
@@ -70,12 +80,8 @@ test('empty milestone list results in 8 created', async () => {
 });
 
 test('should not create a <2 day sprint', async () => {
-  // June 3 2020 (a milestone is due June 4)
-  const now = moment
-    .utc(0)
-    .add(50, 'years')
-    .add(5, 'months')
-    .add(2, 'days');
+  // June 3 2020
+  const now = DUCK && DUCK.firstDueDate.clone().subtract(1, 'day');
 
   const processor = new MilestoneProcessor(
     DefaultProcessorOptions,
@@ -102,10 +108,8 @@ test('should not create a <2 day sprint', async () => {
 
 test('single milestone list results in 7 created', async () => {
   // June 1 2020
-  const now = moment
-    .utc(0)
-    .add(50, 'years')
-    .add(5, 'months');
+  const now = DUCK && DUCK.firstDueDate.clone().subtract(3, 'days');
+
   const TestMilestoneList: Milestone[] = [
     generateMilestone(
       1234,
@@ -126,7 +130,7 @@ test('single milestone list results in 7 created', async () => {
     now
   );
 
-  // process our fake list
+  // Process the list
   const {milestonesToAdd} = await processor.processMilestones(1);
 
   expect(processor.closedMilestones.length).toEqual(1);
@@ -140,24 +144,26 @@ test('single milestone list results in 7 created', async () => {
   expect(milestonesToAdd[6].title).toEqual('🍊  Orange');
 });
 
-test('single milestone list in future cycle results in 7 created', async () => {
-  // June 1 2021
-  const now = moment
-    .utc(0)
-    .add(51, 'years')
-    .add(5, 'months');
+test('single milestone list in future cycle results in 6 created', async () => {
+  // June 1 2021, a few cycles ahead and 1 week + 2 days behind the targeted
+  // first milestone to be created, lobster.
+  const now =
+    LOBSTER &&
+    LOBSTER.firstDueDate
+      .clone()
+      .add(16 * 3, 'weeks')
+      .subtract(9, 'days');
+  console.log('\n\n\n\nnow', now && now.toDate());
+  const ORANGE = GLOBAL_MILESTONES_MAP.get('ORANGE');
+
+  const dueDate =
+    ORANGE &&
+    ORANGE.firstDueDate
+      .clone()
+      .add(4 * 16, 'weeks')
+      .toISOString();
   const TestMilestoneList: Milestone[] = [
-    generateMilestone(
-      1234,
-      1,
-      '🍊  Orange',
-      'First sprint',
-      '2020-01-01T17:00:00Z',
-      0,
-      3,
-      false,
-      '2020-06-04T12:00:00Z'
-    )
+    _quickGenerateMilestone(_getTitle(ORANGE), false, dueDate)
   ];
 
   const processor = new MilestoneProcessor(
@@ -166,12 +172,12 @@ test('single milestone list in future cycle results in 7 created', async () => {
     now
   );
 
-  // process our fake list
+  // Process the list
   const {operationsLeft, milestonesToAdd} = await processor.processMilestones(
     1
   );
 
-  expect(processor.closedMilestones.length).toEqual(1);
+  expect(processor.closedMilestones.length).toEqual(0);
   expect(milestonesToAdd.length).toEqual(6);
   expect(milestonesToAdd[0].title).toEqual('🦞  Lobster');
   expect(milestonesToAdd[1].title).toEqual('🗺  Map');
@@ -181,23 +187,29 @@ test('single milestone list in future cycle results in 7 created', async () => {
   expect(milestonesToAdd[5].title).toEqual('☂️  Umbrella');
 });
 
-test('doesnt add more milestones if ran twice', async () => {
-  // June 1 2021
-  const now = moment
-    .utc(0)
-    .add(51, 'years')
-    .add(5, 'months');
+test('dont recreate closed milestones', async () => {
+  // July 2 2020
+  const now = LOBSTER && LOBSTER.firstDueDate.clone().subtract(1, 'week');
+
   const TestMilestoneList: Milestone[] = [
-    generateMilestone(
-      1234,
-      1,
-      '🍊  Orange',
-      'First sprint',
-      '2020-01-01T17:00:00Z',
-      0,
-      3,
-      false,
-      '2020-06-04T12:00:00Z'
+    _quickGenerateMilestone(
+      _getTitle(LOBSTER),
+      true,
+      _getFirstDueDate(LOBSTER)
+    ),
+    _quickGenerateMilestone(_getTitle(MAP), true, _getFirstDueDate(MAP)),
+    _quickGenerateMilestone(_getTitle(ORANGE), true, _getFirstDueDate(ORANGE)),
+    _quickGenerateMilestone(
+      _getTitle(PORCUPINE),
+      true,
+      _getFirstDueDate(PORCUPINE)
+    ),
+    _quickGenerateMilestone(_getTitle(SUN), true, _getFirstDueDate(SUN)),
+    _quickGenerateMilestone(_getTitle(TENNIS), true, _getFirstDueDate(TENNIS)),
+    _quickGenerateMilestone(
+      _getTitle(UMBRELLA),
+      true,
+      _getFirstDueDate(UMBRELLA)
     )
   ];
 
@@ -207,41 +219,69 @@ test('doesnt add more milestones if ran twice', async () => {
     now
   );
 
-  // process our fake list
-  const {operationsLeft, milestonesToAdd} = await processor.processMilestones(
-    1
-  );
+  // Process the list
+  const {milestonesToAdd} = await processor.processMilestones(1);
 
-  expect(processor.closedMilestones.length).toEqual(1);
-  expect(milestonesToAdd.length).toEqual(6);
-  expect(milestonesToAdd[0].title).toEqual('🦞  Lobster');
-  expect(milestonesToAdd[1].title).toEqual('🗺  Map');
-  expect(milestonesToAdd[2].title).toEqual('🦔  Porcupine');
-  expect(milestonesToAdd[3].title).toEqual('☀️  Sun');
-  expect(milestonesToAdd[4].title).toEqual('🎾  Tennis');
-  expect(milestonesToAdd[5].title).toEqual('☂️  Umbrella');
+  expect(milestonesToAdd.length).toEqual(0);
+});
 
-  const TestMilestoneList2: Milestone[] = [
-    _quickGenerateMilestone('🍊  Orange'),
-    _quickGenerateMilestone('🦞  Lobster'),
-    _quickGenerateMilestone('🗺  Map'),
-    _quickGenerateMilestone('🦔  Porcupine'),
-    _quickGenerateMilestone('☀️  Sun'),
-    _quickGenerateMilestone('🎾  Tennis'),
-    _quickGenerateMilestone('☂️  Umbrella')
+test('create milestones if old milestones exists', async () => {
+  // Nov 5 2020
+  const now =
+    ORANGE &&
+    ORANGE.firstDueDate
+      .clone()
+      .add(16, 'weeks')
+      .subtract(1, 'week');
+
+  const TestMilestoneList: Milestone[] = [
+    _quickGenerateMilestone(_getTitle(ORANGE), false, _getFirstDueDate(ORANGE)),
+    _quickGenerateMilestone(
+      _getTitle(LOBSTER),
+      false,
+      _getFirstDueDate(LOBSTER)
+    ),
+    _quickGenerateMilestone(_getTitle(MAP), false, _getFirstDueDate(MAP)),
+    _quickGenerateMilestone(
+      _getTitle(PORCUPINE),
+      false,
+      _getFirstDueDate(PORCUPINE)
+    ),
+    _quickGenerateMilestone(_getTitle(SUN), false, _getFirstDueDate(SUN)),
+    _quickGenerateMilestone(_getTitle(TENNIS), false, _getFirstDueDate(TENNIS)),
+    _quickGenerateMilestone(
+      _getTitle(UMBRELLA),
+      false,
+      _getFirstDueDate(UMBRELLA)
+    )
   ];
 
-  const processor2 = new MilestoneProcessor(
+  const processor = new MilestoneProcessor(
     DefaultProcessorOptions,
-    async p => (p == 1 ? TestMilestoneList2 : []),
+    async p => (p == 1 ? TestMilestoneList : []),
     now
   );
 
-  const processorResult = await processor2.processMilestones(1);
-  expect(processorResult.milestonesToAdd.length).toEqual(0);
+  // Process the list
+  const {milestonesToAdd} = await processor.processMilestones(1);
+
+  expect(milestonesToAdd.length).toEqual(7);
 });
 
-function _quickGenerateMilestone(title: string) {
+function _getTitle(globalMilestone?: GlobalMilestone) {
+  return globalMilestone && `${globalMilestone.emoji}  ${globalMilestone.name}`;
+}
+
+function _getFirstDueDate(globalMilestone?: GlobalMilestone) {
+  const dueDate = globalMilestone && globalMilestone.firstDueDate;
+  return dueDate && dueDate.clone().toISOString();
+}
+
+function _quickGenerateMilestone(
+  title: string = 'title',
+  isClosed: boolean = false,
+  dueOn: string = '2020-06-04T12:00:00Z'
+) {
   return generateMilestone(
     1234,
     1,
@@ -249,8 +289,8 @@ function _quickGenerateMilestone(title: string) {
     'First sprint',
     '2020-01-01T17:00:00Z',
     0,
-    3,
-    false,
-    '2020-06-04T12:00:00Z'
+    1,
+    isClosed,
+    dueOn
   );
 }

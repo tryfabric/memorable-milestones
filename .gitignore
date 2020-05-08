@@ -1,4 +1,4 @@
 .DS_Store
 lib/
 __tests__/runner/*
-# /node_modules
+/node_modules

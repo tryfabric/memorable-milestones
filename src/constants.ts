@@ -58,102 +58,103 @@ function _getFirstDueDate(date: string) {
 
 // TODO: Have a way of validating/changing this if people really want to change the names.
 // If you do change the names or formatting, make sure it's backwards compatible.
-const APPLE = {
+const APPLE = Object.freeze({
   id: 'APPLE',
   emoji: `🍎`,
   name: `Apple`,
   firstDueDate: _getFirstDueDate('2020-05-14')
-};
-const BIKE = {
+});
+
+const BIKE = Object.freeze({
   id: 'BIKE',
   emoji: `🚲`,
   name: `Bike`,
   firstDueDate: _getFirstDueDate('2020-05-21')
-};
-const CACTUS = {
+});
+const CACTUS = Object.freeze({
   id: 'CACTUS',
   emoji: `🌵`,
   name: `Cactus`,
   firstDueDate: _getFirstDueDate('2020-05-28')
-};
-const DUCK = {
+});
+const DUCK = Object.freeze({
   id: 'DUCK',
   emoji: `🦆`,
   name: `Duck`,
   firstDueDate: _getFirstDueDate('2020-06-04')
-};
-const EGG = {
+});
+const EGG = Object.freeze({
   id: 'EGG',
   emoji: `🥚`,
   name: `Egg`,
   firstDueDate: _getFirstDueDate('2020-06-11')
-};
-const FRISBEE = {
+});
+const FRISBEE = Object.freeze({
   id: 'FRISBEE',
   emoji: `🥏`,
   name: `Frisbee`,
   firstDueDate: _getFirstDueDate('2020-06-18')
-};
-const GRAPE = {
+});
+const GRAPE = Object.freeze({
   id: 'GRAPE',
   emoji: `🍇`,
   name: `Grape`,
   firstDueDate: _getFirstDueDate('2020-06-25')
-};
-const HORSE = {
+});
+const HORSE = Object.freeze({
   id: 'HORSE',
   emoji: `🐴`,
   name: `Horse`,
   firstDueDate: _getFirstDueDate('2020-07-02')
-};
-const LOBSTER = {
+});
+const LOBSTER = Object.freeze({
   id: 'LOBSTER',
   emoji: `🦞`,
   name: `Lobster`,
   firstDueDate: _getFirstDueDate('2020-07-09')
-};
-const MAP = {
+});
+const MAP = Object.freeze({
   id: 'MAP',
   emoji: `🗺`,
   name: `Map`,
   firstDueDate: _getFirstDueDate('2020-07-16')
-};
-const ORANGE = {
+});
+const ORANGE = Object.freeze({
   id: 'ORANGE',
   emoji: `🍊`,
   name: `Orange`,
   firstDueDate: _getFirstDueDate('2020-07-23')
-};
-const PORCUPINE = {
+});
+const PORCUPINE = Object.freeze({
   id: 'PORCUPINE',
   emoji: `🦔`,
   name: `Porcupine`,
   firstDueDate: _getFirstDueDate('2020-07-30')
-};
-const SUN = {
+});
+const SUN = Object.freeze({
   id: 'SUN',
   emoji: `☀️`,
   name: `Sun`,
   firstDueDate: _getFirstDueDate('2020-08-06')
-};
-const TENNIS = {
+});
+const TENNIS = Object.freeze({
   id: 'TENNIS',
   emoji: `🎾`,
   name: `Tennis`,
   firstDueDate: _getFirstDueDate('2020-08-13')
-};
-const UMBRELLA = {
+});
+const UMBRELLA = Object.freeze({
   id: 'UMBRELLA',
   emoji: `☂️`,
   name: `Umbrella`,
   firstDueDate: _getFirstDueDate('2020-08-20')
-};
-const WATERMELON = {
+});
+const WATERMELON = Object.freeze({
   id: 'WATERMELON',
   emoji: `🍉`,
   name: `Watermelon`,
   firstDueDate: _getFirstDueDate('2020-08-27')
-};
+});
 
 const map = new Map<string, GlobalMilestone>();
 map.set('APPLE', APPLE);
@@ -172,4 +173,4 @@ map.set('SUN', SUN);
 map.set('TENNIS', TENNIS);
 map.set('UMBRELLA', UMBRELLA);
 map.set('WATERMELON', WATERMELON);
-export const GLOBAL_MILESTONES_MAP = map;
+export const GLOBAL_MILESTONES_MAP = Object.freeze(map);
