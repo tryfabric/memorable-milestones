@@ -1,4 +1,6 @@
 # Memorable Milestones
+[![Memorable Milestones](https://res.cloudinary.com/m15y/image/upload/v1588977044/su/TJ5G67VHU/kmbjqinsp71vavcdth7j.svg)](https://github.com/instantish/memorable-milestones)
+
 🍎🚲🌵🦆🥚🥏🍇🐴🦞🗺🍊🦔☀️🎾☂️🍉
 
 An opinionated GitHub Action that puts your milestones on auto-pilot, using memorable emoji names.
@@ -124,6 +126,12 @@ jobs:
 
 
 See [action.yml](./action.yml) for the full list of options.
+
+You can add a badge to your repo's README (like [![Memorable Milestones](https://res.cloudinary.com/m15y/image/upload/v1588977044/su/TJ5G67VHU/kmbjqinsp71vavcdth7j.svg)](https://github.com/instantish/memorable-milestones)):
+
+```markdown
+[![Memorable Milestones](https://res.cloudinary.com/m15y/image/upload/v1588977044/su/TJ5G67VHU/kmbjqinsp71vavcdth7j.svg)](https://github.com/instantish/memorable-milestones)
+```
 
 If you have questions about setting this up, feel free to reach out to hi@itsinstantish.com with subject line "Question about GitHub Action" 😊
 
