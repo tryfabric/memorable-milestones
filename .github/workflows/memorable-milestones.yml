@@ -1,7 +1,7 @@
 name: "Memorable milestones"
 on:
   schedule:
-  - cron: 0/5 * * * *
+  - cron: 0/20 * * * *
 
 jobs:
   memorable-milestones:
