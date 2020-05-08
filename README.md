@@ -16,15 +16,15 @@ Check out this project's [milestones page](https://github.com/instantish/memorab
 
 **Benefits:**
 
-✅ easy one-time setup, with no config needed
+✅ easy one-time setup, with **no config needed**
 
-✅ automatically keeps milestones up to date
+✅ automatically keeps milestones **up to date**
 
 ✅ you don't have to come up with your own memorable names
 
-✅ everyone is on the same schedule, so cross-team collaboration is easy
+✅ the schedule of milestones is **global**, so you can collaborate with external teams easily
 
-✅ even closes milestones that have no more open issues or PRs, so you don't have to
+✅ even **closes milestones** that have no more open issues or PRs, so you don't have to
 
 ## Milestones
 
