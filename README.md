@@ -127,6 +127,14 @@ See [action.yml](./action.yml) for the full list of options.
 
 If you have questions about setting this up, feel free to reach out to hi@itsinstantish.com with subject line "Question about GitHub Action" 😊
 
+## Action minutes
+
+This is a rough estimate, but on average, this action takes <20s to run on Linux. Assuming it runs every 20 minutes and takes <30s, that's <36 minutes a day, or <1116 minutes a month. This cost is per-repo.
+
+GitHub's free plan allocates 2k minutes for free, the team plan allocates 3k, and enterprise allocates 50k.
+
+If you run this once a day, (cron: `0 0 * * *`) instead of once every 20 minutes (cron: `*/20 * * * *`), it should use <15 minutes a month per repo, so you can configure it on up to ~100 repos without going over your free plan budget.
+
 ## Debugging
 
 To see debug ouput from this action, you must set the secret `ACTIONS_STEP_DEBUG` to `true` in your repository. You can run this action in debug only mode (no actions will be taken on your milestones) by passing `debug-only` `true` as an argument to the action.
@@ -147,14 +155,6 @@ Run the tests :heavy_check_mark:
 ```bash
 $ npm test
 ```
-
-## Minutes usage
-
-This is a rough estimate, but on average, this action takes <20s to run on Linux. Assuming it runs every 20 minutes and takes <30s, that's <36 minutes a day, or <1116 minutes a month. This cost is per-repo.
-
-GitHub's free plan allocates 2k minutes for free, the team plan allocates 3k, and enterprise allocates 50k.
-
-If you run this once a day, (cron: `0 0 * * *`) instead of once every 20 minutes (cron: `*/20 * * * *`), it should use <15 minutes a month per repo, so you can configure it on up to ~100 repos without going over your free plan budget.
 
 ## More Resources
 
