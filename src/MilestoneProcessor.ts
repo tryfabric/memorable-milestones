@@ -102,6 +102,7 @@ export class MilestoneProcessor {
     if (milestones.length > 0) {
       // Go through milestones
       for (const milestone of milestones.values()) {
+        core.info(`Checking milestone: ${milestone.title}`);
         // Build list of upcoming global milestones that already exist.
         this._addMilestone(milestone);
 
@@ -124,15 +125,16 @@ export class MilestoneProcessor {
   }
 
   private async _processMilestoneIfNeedsClosing(milestone: Milestone) {
-    if (milestone.state === 'closed') {
-      return;
-    }
-
     const totalIssues =
       (milestone.open_issues || 0) + (milestone.closed_issues || 0);
     const {number, title} = milestone;
     const updatedAt = milestone.updated_at;
     const openIssues = milestone.open_issues;
+
+    if (milestone.state === 'closed') {
+      core.info(`Skipping closed milestone ${title}`);
+      return;
+    }
 
     core.info(
       `Found milestone: milestone #${number} - ${title} last updated ${updatedAt}`
@@ -247,7 +249,8 @@ export class MilestoneProcessor {
         owner: github.context.repo.owner,
         repo: github.context.repo.repo,
         per_page: 100,
-        page
+        page,
+        state: 'all'
       }
     );
 
