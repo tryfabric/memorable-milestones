@@ -423,102 +423,102 @@ function _getFirstDueDate(date) {
 }
 // TODO: Have a way of validating/changing this if people really want to change the names.
 // If you do change the names or formatting, make sure it's backwards compatible.
-const APPLE = {
+const APPLE = Object.freeze({
     id: 'APPLE',
     emoji: `🍎`,
     name: `Apple`,
     firstDueDate: _getFirstDueDate('2020-05-14')
-};
-const BIKE = {
+});
+const BIKE = Object.freeze({
     id: 'BIKE',
     emoji: `🚲`,
     name: `Bike`,
     firstDueDate: _getFirstDueDate('2020-05-21')
-};
-const CACTUS = {
+});
+const CACTUS = Object.freeze({
     id: 'CACTUS',
     emoji: `🌵`,
     name: `Cactus`,
     firstDueDate: _getFirstDueDate('2020-05-28')
-};
-const DUCK = {
+});
+const DUCK = Object.freeze({
     id: 'DUCK',
     emoji: `🦆`,
     name: `Duck`,
     firstDueDate: _getFirstDueDate('2020-06-04')
-};
-const EGG = {
+});
+const EGG = Object.freeze({
     id: 'EGG',
     emoji: `🥚`,
     name: `Egg`,
     firstDueDate: _getFirstDueDate('2020-06-11')
-};
-const FRISBEE = {
+});
+const FRISBEE = Object.freeze({
     id: 'FRISBEE',
     emoji: `🥏`,
     name: `Frisbee`,
     firstDueDate: _getFirstDueDate('2020-06-18')
-};
-const GRAPE = {
+});
+const GRAPE = Object.freeze({
     id: 'GRAPE',
     emoji: `🍇`,
     name: `Grape`,
     firstDueDate: _getFirstDueDate('2020-06-25')
-};
-const HORSE = {
+});
+const HORSE = Object.freeze({
     id: 'HORSE',
     emoji: `🐴`,
     name: `Horse`,
     firstDueDate: _getFirstDueDate('2020-07-02')
-};
-const LOBSTER = {
+});
+const LOBSTER = Object.freeze({
     id: 'LOBSTER',
     emoji: `🦞`,
     name: `Lobster`,
     firstDueDate: _getFirstDueDate('2020-07-09')
-};
-const MAP = {
+});
+const MAP = Object.freeze({
     id: 'MAP',
     emoji: `🗺`,
     name: `Map`,
     firstDueDate: _getFirstDueDate('2020-07-16')
-};
-const ORANGE = {
+});
+const ORANGE = Object.freeze({
     id: 'ORANGE',
     emoji: `🍊`,
     name: `Orange`,
     firstDueDate: _getFirstDueDate('2020-07-23')
-};
-const PORCUPINE = {
+});
+const PORCUPINE = Object.freeze({
     id: 'PORCUPINE',
     emoji: `🦔`,
     name: `Porcupine`,
     firstDueDate: _getFirstDueDate('2020-07-30')
-};
-const SUN = {
+});
+const SUN = Object.freeze({
     id: 'SUN',
     emoji: `☀️`,
     name: `Sun`,
     firstDueDate: _getFirstDueDate('2020-08-06')
-};
-const TENNIS = {
+});
+const TENNIS = Object.freeze({
     id: 'TENNIS',
     emoji: `🎾`,
     name: `Tennis`,
     firstDueDate: _getFirstDueDate('2020-08-13')
-};
-const UMBRELLA = {
+});
+const UMBRELLA = Object.freeze({
     id: 'UMBRELLA',
     emoji: `☂️`,
     name: `Umbrella`,
     firstDueDate: _getFirstDueDate('2020-08-20')
-};
-const WATERMELON = {
+});
+const WATERMELON = Object.freeze({
     id: 'WATERMELON',
     emoji: `🍉`,
     name: `Watermelon`,
     firstDueDate: _getFirstDueDate('2020-08-27')
-};
+});
 const map = new Map();
 map.set('APPLE', APPLE);
 map.set('BIKE', BIKE);
@@ -536,7 +536,7 @@ map.set('SUN', SUN);
 map.set('TENNIS', TENNIS);
 map.set('UMBRELLA', UMBRELLA);
 map.set('WATERMELON', WATERMELON);
-exports.GLOBAL_MILESTONES_MAP = map;
+exports.GLOBAL_MILESTONES_MAP = Object.freeze(map);
 
 
 /***/ }),
@@ -29521,7 +29521,6 @@ const core = __importStar(__webpack_require__(470));
 const github = __importStar(__webpack_require__(469));
 const moment_1 = __importDefault(__webpack_require__(482));
 const constants_1 = __webpack_require__(32);
-// TODO: Potentially expose as options.
 const OPERATIONS_PER_RUN = 100;
 const MIN_ISSUES_IN_MILESTONE = 3;
 const SHORTEST_SPRINT_LENGTH_IN_DAYS = 2;
@@ -29544,6 +29543,7 @@ class MilestoneProcessor {
         this.milestoneTitleToGlobalMilestoneIdMap = new Map();
         this.now = now || moment_1.default.utc();
         core.info(`Checking milestones at ${this.now.toISOString()}`);
+        // For testing.
         if (getMilestones) {
             this.getMilestones = getMilestones;
         }
@@ -29556,16 +29556,30 @@ class MilestoneProcessor {
             this.milestoneTitleToGlobalMilestoneIdMap.set(title, globalMilestone.id);
         }
     }
+    // Process a page of milestones.
+    // TODO: Make iterative.
     processMilestones(page = 1) {
         return __awaiter(this, void 0, void 0, function* () {
             if (this.operationsLeft <= 0) {
                 core.warning('Reached max number of operations to process. Exiting.');
                 return 0;
             }
-            // get the next batch of milestones
+            // Get the next batch of milestones
             const milestones = yield this.getMilestones(page);
             this.operationsLeft -= 1;
-            if (milestones.length <= 0) {
+            if (milestones.length > 0) {
+                // Go through milestones
+                for (const milestone of milestones.values()) {
+                    // Build list of upcoming global milestones that already exist.
+                    this._addMilestone(milestone);
+                    yield this._processMilestoneIfNeedsClosing(milestone);
+                }
+                // do the next batch
+                return this.processMilestones(page + 1);
+            }
+            else {
+                // Once you've gotten all the milestones, assert that the right global
+                // milestones are there.
                 yield this._assertMilestones();
                 core.info('No more milestones found to process. Exiting.');
                 return {
@@ -29573,38 +29587,32 @@ class MilestoneProcessor {
                     milestonesToAdd: this.milestonesToAdd
                 };
             }
-            for (const milestone of milestones.values()) {
-                if (milestone.state === 'closed') {
-                    continue;
-                }
-                const globalMilestoneId = this.milestoneTitleToGlobalMilestoneIdMap.get(milestone.title);
-                core.info(`Checking global milestone: ${globalMilestoneId}`);
-                if (globalMilestoneId &&
-                    !this.currentGlobalMilestoneIds.includes(globalMilestoneId)) {
-                    this.currentGlobalMilestoneIds.push(globalMilestoneId);
-                }
-                const totalIssues = (milestone.open_issues || 0) + (milestone.closed_issues || 0);
-                const { number, title } = milestone;
-                const updatedAt = milestone.updated_at;
-                const openIssues = milestone.open_issues;
-                core.info(`Found milestone: milestone #${number} - ${title} last updated ${updatedAt}`);
-                if (totalIssues < MIN_ISSUES_IN_MILESTONE) {
-                    core.info(`Skipping ${title} because it has less than ${MIN_ISSUES_IN_MILESTONE} issues`);
-                    continue;
-                }
-                if (openIssues > 0) {
-                    core.info(`Skipping ${title} because it has open issues/prs`);
-                    continue;
-                }
-                // Close instantly because there isn't a good way to tag milestones
-                // and do another pass.
-                yield this.closeMilestone(milestone);
-            }
-            // do the next batch
-            return this.processMilestones(page + 1);
         });
     }
-    // Enforce list of global milestones
+    _processMilestoneIfNeedsClosing(milestone) {
+        return __awaiter(this, void 0, void 0, function* () {
+            if (milestone.state === 'closed') {
+                return;
+            }
+            const totalIssues = (milestone.open_issues || 0) + (milestone.closed_issues || 0);
+            const { number, title } = milestone;
+            const updatedAt = milestone.updated_at;
+            const openIssues = milestone.open_issues;
+            core.info(`Found milestone: milestone #${number} - ${title} last updated ${updatedAt}`);
+            if (totalIssues < MIN_ISSUES_IN_MILESTONE) {
+                core.info(`Skipping closing ${title} because it has less than ${MIN_ISSUES_IN_MILESTONE} issues`);
+                return;
+            }
+            if (openIssues > 0) {
+                core.info(`Skipping closing ${title} because it has open issues/prs`);
+                return;
+            }
+            // Close instantly because there isn't a good way to tag milestones
+            // and do another pass.
+            return yield this.closeMilestone(milestone);
+        });
+    }
+    // Enforce list of global milestones.
     _assertMilestones() {
         return __awaiter(this, void 0, void 0, function* () {
             core.info('Asserting milestones');
@@ -29622,29 +29630,31 @@ class MilestoneProcessor {
                 // Calculate milestones that are coming up soon and are not already
                 // created.
                 const globalMilestonesIdsLeftToNearestDueDateMap = new Map();
+                // Seed map of global milestones with upcoming due dates.
                 for (const globalMilestone of globalMilestonesLeft.values()) {
-                    const nearestDueDate = this._getNearestDueDate(globalMilestone);
+                    const nearestDueDate = this._getUpcomingDueDate(globalMilestone);
                     if (nearestDueDate) {
                         globalMilestonesIdsLeftToNearestDueDateMap.set(globalMilestone.id, nearestDueDate);
                     }
                 }
-                // Build the params for the milestones to add.
+                // Build the list of params for the milestones to add.
                 for (const globalMilestoneId of globalMilestonesIdsLeftToNearestDueDateMap.keys()) {
                     const globalMilestone = constants_1.GLOBAL_MILESTONES_MAP.get(globalMilestoneId);
                     if (globalMilestone) {
                         const nearestDueDate = globalMilestonesIdsLeftToNearestDueDateMap.get(globalMilestoneId);
-                        this.milestonesToAdd.push({
-                            title: _getMilestoneTitle(globalMilestone),
-                            description: 'Generated by [Memorable Milestones](https://github.com/instantish/memorable-milestones)',
-                            due_on: nearestDueDate && nearestDueDate.toISOString()
-                        });
+                        if (nearestDueDate) {
+                            const milestoneToAdd = this._buildMilestone(globalMilestone, nearestDueDate);
+                            core.info(`Milestone to add: ${milestoneToAdd.title}`);
+                            this.milestonesToAdd.push(milestoneToAdd);
+                        }
                     }
                 }
-                core.info(`Milestones to create: ${this.milestonesToAdd.length}`);
-                // Create the milestones.
+                core.info(`# milestones to add: ${this.milestonesToAdd.length}`);
+                // If debug, don't actually create the milestones.
                 if (this.options.debugOnly) {
                     return;
                 }
+                // Create the milestones.
                 for (const milestone of this.milestonesToAdd.values()) {
                     yield this.createMilestone({
                         owner: github.context.repo.owner,
@@ -29656,6 +29666,13 @@ class MilestoneProcessor {
                 }
             }
         });
+    }
+    _buildMilestone(globalMilestone, dueDate) {
+        return {
+            title: _getMilestoneTitle(globalMilestone),
+            description: 'Generated by [Memorable Milestones](https://github.com/instantish/memorable-milestones)',
+            due_on: dueDate && dueDate.toISOString()
+        };
     }
     // Get issues from github in baches of 100
     getMilestones(page) {
@@ -29692,7 +29709,8 @@ class MilestoneProcessor {
             });
         });
     }
-    _getNearestDueDate(globalMilestone) {
+    // Get nearest due date within 8 weeks.
+    _getUpcomingDueDate(globalMilestone) {
         const initialDueDate = globalMilestone.firstDueDate;
         // Hacky because I don't want to do this with calculation because of
         // leap years etc.
@@ -29700,7 +29718,9 @@ class MilestoneProcessor {
         for (let i = 0; i < 100; i++) {
             const nearestDueDate = i === 0
                 ? initialDueDate
-                : initialDueDate.add(1 * NUMBER_OF_WEEKS_IN_CYCLE, 'weeks');
+                : initialDueDate
+                    .clone()
+                    .add(1 * i * NUMBER_OF_WEEKS_IN_CYCLE, 'weeks');
             const daysUntilNearestDueDate = nearestDueDate.diff(this.now, 'days');
             // If the due date is between 2 days from now and 8 weeks, eligible to add.
             if (daysUntilNearestDueDate > SHORTEST_SPRINT_LENGTH_IN_DAYS &&
@@ -29715,6 +29735,23 @@ class MilestoneProcessor {
             }
         }
         return;
+    }
+    // Add to list of current global milestones.
+    _addMilestone(milestone) {
+        const dueOn = milestone.due_on && moment_1.default(milestone.due_on);
+        if (!dueOn || (dueOn && dueOn.isAfter(this.now))) {
+            // Don't record past milestones or milestones without due dates, so they're
+            // not recreated.
+            const globalMilestoneId = this.milestoneTitleToGlobalMilestoneIdMap.get(milestone.title);
+            core.info(`Checking global milestone: ${globalMilestoneId}`);
+            if (globalMilestoneId &&
+                !this.currentGlobalMilestoneIds.includes(globalMilestoneId)) {
+                this.currentGlobalMilestoneIds.push(globalMilestoneId);
+            }
+        }
+        else {
+            return;
+        }
     }
 }
 exports.MilestoneProcessor = MilestoneProcessor;

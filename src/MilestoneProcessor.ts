@@ -140,12 +140,12 @@ export class MilestoneProcessor {
 
     if (totalIssues < MIN_ISSUES_IN_MILESTONE) {
       core.info(
-        `Skipping ${title} because it has less than ${MIN_ISSUES_IN_MILESTONE} issues`
+        `Skipping closing ${title} because it has less than ${MIN_ISSUES_IN_MILESTONE} issues`
       );
       return;
     }
     if (openIssues > 0) {
-      core.info(`Skipping ${title} because it has open issues/prs`);
+      core.info(`Skipping closing ${title} because it has open issues/prs`);
       return;
     }
     // Close instantly because there isn't a good way to tag milestones
