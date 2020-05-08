@@ -148,6 +148,14 @@ Run the tests :heavy_check_mark:
 $ npm test
 ```
 
+## Minutes usage
+
+This is a rough estimate, but on average, this action takes <20s to run on Linux. Assuming it runs every 20 minutes and takes <30s, that's <36 minutes a day, or <1116 minutes a month. This cost is per-repo.
+
+GitHub's free plan allocates 2k minutes for free, the team plan allocates 3k, and enterprise allocates 50k.
+
+If you run this once a day, (cron: `0 0 * * *` instead of `*/20 * * * *`), it should use <15 minutes a month, so you can configure it on up to ~100 repos without going over your free plan budget.
+
 ## More Resources
 
 For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️ or check out [this doc](https://docs.google.com/document/d/1b2vrpmclGQqw7Prjm2o5a13J-orLhfSqffvY7SOmZi8/edit) for some thoughts on GitHub labels for small teams.
