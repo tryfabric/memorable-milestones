@@ -5,9 +5,14 @@ An opinionated GitHub Action that puts your milestones on auto-pilot, using memo
 
 **You won't have to create or close milestones again.**
 
-Creates weekly milestones, rotating between 16 pre-selected and memorable emoji names.
+Generates weekly milestones (up to 8 weeks out), rotating between 16 pre-selected and memorable emoji names.
 
-Assigns due dates to milestones (on Thursdays).
+All milestones have due dates, every Thursday.
+
+Check out this project's [milestones page](https://github.com/instantish/memorable-milestones/milestones) to see what the generated milestones look like.
+
+![Milestones](https://user-images.githubusercontent.com/1459660/81017934-4539da00-8e18-11ea-8dc0-3af3b1474944.png)
+
 
 **Benefits:**
 
@@ -31,7 +36,7 @@ teams.
 
 ### Due dates
 
-Milestones are weekly and the action will create 7 of them for 7 weeks out. The due dates are each Thursday.
+Milestones are weekly and the action will create 8 of them for 8 weeks out. The due dates are each Thursday.
 
 ### Names
 
@@ -95,12 +100,13 @@ This Action only creates or closes milestones (when they get to 100%). That mean
 delete your current milestones or change their names or due dates. If a milestone with the exact same
 name exists, it does not recreate it or edit it.
 
-Note that if you have over 100 milestones, this won't work reliably because we limit the number of
-operations.
+Have a holiday coming up or skipping a milestone? Just close it and it won't be recreated.
 
 ## Usage
 
-Basic (runs every 20 minutes):
+Actions are "individual tasks that you can combine to create jobs and customize your workflow." You can use them by creating a file that ends in `.yml` in the `.github` directory of your repo. A nice convention is to create a directory within `.github` called `workflows`, but you can set it up any way you like.
+
+Copy the following verbatim into a `.yml` workflow file into your repo (to run every 20 minutes):
 ```yaml
 name: "Memorable milestones"
 on:
@@ -118,6 +124,16 @@ jobs:
 
 
 See [action.yml](./action.yml) for the full list of options.
+
+If you have questions about setting this up, feel free to reach out to hi@itsinstantish.com with subject line "Question about GitHub Action" 😊
+
+## Action minutes
+
+This is a rough estimate, but on average, this action takes <20s to run on Linux. Assuming it runs every 20 minutes and takes <30s, that's <36 minutes a day, or <1116 minutes a month. This cost is per-repo.
+
+GitHub's free plan allocates 2k minutes for free, the team plan allocates 3k, and enterprise allocates 50k.
+
+If you run this once a day, (cron: `0 0 * * *`) instead of once every 20 minutes (cron: `*/20 * * * *`), it should use <15 minutes a month per repo, so you can configure it on up to ~100 repos without going over your free plan budget.
 
 ## Debugging
 
@@ -142,6 +158,4 @@ $ npm test
 
 ## More Resources
 
-For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️
-
-If you have questions about setting this up, feel free to reach out to hi@itsinstantish.com with subject line "Question about GitHub Action" 😊
+For more resources or tools to make issue tracking easier, check out [Instantish](https://itsinstantish.com) ⚡️ or check out [this doc](https://docs.google.com/document/d/1b2vrpmclGQqw7Prjm2o5a13J-orLhfSqffvY7SOmZi8/edit) for some thoughts on GitHub labels for small teams.
