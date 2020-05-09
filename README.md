@@ -9,9 +9,9 @@ An opinionated GitHub Action that puts your milestones on auto-pilot, using memo
 
 Generates weekly milestones (up to 8 weeks out), rotating between 16 pre-selected and memorable emoji names.
 
-All milestones have due dates, every Thursday.
+Due dates are set to every Thursday.
 
-Check out this project's [milestones page](https://github.com/instantish/memorable-milestones/milestones) to see what the generated milestones look like.
+Check out this project's [milestones page](https://github.com/instantish/memorable-milestones/milestones) to see what the generated ones look like.
 
 ![Milestones](https://user-images.githubusercontent.com/1459660/81017934-4539da00-8e18-11ea-8dc0-3af3b1474944.png)
 
@@ -20,11 +20,11 @@ Check out this project's [milestones page](https://github.com/instantish/memorab
 
 ✅ easy one-time setup, with **no config needed**
 
-✅ automatically keeps milestones **up to date**
+✅ automatically keeps schedule **up to date**
 
 ✅ you don't have to come up with your own memorable names
 
-✅ the schedule of milestones is **global**, so you can collaborate with external teams easily
+✅ the schedule is **global**, so you can collaborate with external teams easily
 
 ✅ even **closes milestones** that have no more open issues or PRs, so you don't have to
 
@@ -32,9 +32,8 @@ Check out this project's [milestones page](https://github.com/instantish/memorab
 
 There are 16 weekly milestones. Names and due dates are pre-determined, so there's no setup!
 
-The nice thing about this is that these milestones are **global**, meaning August 27 2020 is
-the `🍉  Watermelon` sprint for everyone using this action. So it's easy to collaborate across
-teams.
+The milestone schedule is **global**, meaning the `🍉  Watermelon` sprint finishes on
+August 27 2020 for everyone using this action. This makes it simple to collaborate across teams.
 
 ### Due dates
 
@@ -42,7 +41,7 @@ Milestones are weekly and the action will create 8 of them for 8 weeks out. The 
 
 ### Names
 
-These milestone names are designed to be easy to remember and distinct. Using emojis triggers the parts
+The names are designed to be easy to remember and distinct. Using emojis triggers the parts
 of our brains that are great at remembering pictures!
 
 **What makes these milestones memorable?**
