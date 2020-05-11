@@ -107,12 +107,12 @@ Have a holiday coming up or skipping a milestone? Just close it and it won't be 
 
 Actions are "individual tasks that you can combine to create jobs and customize your workflow." You can use them by creating a file that ends in `.yml` in the `.github` directory of your repo. A nice convention is to create a directory within `.github` called `workflows`, but you can set it up any way you like.
 
-Copy the following verbatim into a `.yml` workflow file into your repo (to run every 20 minutes):
+Create a new file at the path `.github/workflows/milestones.yml` and copy the following verbatim:
 ```yaml
 name: "Memorable milestones"
 on:
   schedule:
-  - cron: "*/20 * * * *"
+  - cron: "*/30 * * * *"
 
 jobs:
   memorable-milestones:
@@ -136,11 +136,11 @@ If you have questions about setting this up, feel free to reach out to hi@itsins
 
 ## Action minutes
 
-This is a rough estimate, but on average, this action takes <20s to run on Linux. Assuming it runs every 20 minutes and takes <30s, that's <36 minutes a day, or <1116 minutes a month. This cost is per-repo.
+This is a rough estimate, but on average, this action takes <20s to run on Linux. Assuming it runs every 30 minutes and takes up to 30s, that's <24 minutes a day, or <744 minutes a month. This cost is per-repo.
 
 GitHub's free plan allocates 2k minutes for free, the team plan allocates 3k, and enterprise allocates 50k.
 
-If you run this once a day, (cron: `0 0 * * *`) instead of once every 20 minutes (cron: `*/20 * * * *`), it should use <15 minutes a month per repo, so you can configure it on up to ~100 repos without going over your free plan budget.
+If you run this once a day, (cron: `0 0 * * *`) instead of once every 30 minutes (cron: `*/30 * * * *`), it should use <15 minutes a month per repo, so you can configure it on up to ~100 repos without going over your free plan budget.
 
 ## Debugging
 
