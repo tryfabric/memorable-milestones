@@ -118,7 +118,7 @@ jobs:
   memorable-milestones:
     runs-on: ubuntu-latest
     steps:
-    - uses: instantish/memorable-milestones@1.1.2
+    - uses: instantish/memorable-milestones@1.1.3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
 ```
