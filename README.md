@@ -13,6 +13,8 @@ Due dates are set to every Thursday.
 
 Check out this project's [milestones page](https://github.com/instantish/memorable-milestones/milestones) to see what the generated ones look like.
 
+You can also follow our [Twitter bot](https://twitter.com/memorable_bot) to be notified when milestones start and end! 💝
+
 ![Milestones](https://user-images.githubusercontent.com/1459660/81017934-4539da00-8e18-11ea-8dc0-3af3b1474944.png)
 
 
