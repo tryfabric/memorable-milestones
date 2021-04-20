@@ -177,7 +177,7 @@ test('single milestone list in future cycle results in 6 created', async () => {
     1
   );
 
-  expect(processor.closedMilestones.length).toEqual(0);
+  expect(processor.closedMilestones.length).toEqual(1);
   expect(milestonesToAdd.length).toEqual(6);
   expect(milestonesToAdd[0].title).toEqual('🦞  Lobster');
   expect(milestonesToAdd[1].title).toEqual('🗺  Map');

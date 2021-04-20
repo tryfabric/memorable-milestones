@@ -17,7 +17,6 @@ type OctoKitMilestone = Octokit.Response<Octokit.IssuesCreateMilestoneResponse>;
 type IssuesCreateMilestoneParams = Octokit.IssuesCreateMilestoneParams;
 
 const OPERATIONS_PER_RUN = 100;
-const MIN_ISSUES_IN_MILESTONE = 3;
 const SHORTEST_SPRINT_LENGTH_IN_DAYS = 2;
 const NUMBER_OF_WEEKS_OUT_TO_MAKE_MILESTONES = 8;
 const NUMBER_OF_WEEKS_IN_CYCLE = 16;
@@ -146,8 +145,6 @@ export class MilestoneProcessor {
   }
 
   private async _tryCloseMilestone(milestone: Milestone) {
-    const totalIssues =
-      (milestone.open_issues || 0) + (milestone.closed_issues || 0);
     const {number, title} = milestone;
     const updatedAt = milestone.updated_at;
     const openIssues = milestone.open_issues;
@@ -161,12 +158,6 @@ export class MilestoneProcessor {
       `Found milestone: milestone #${number} - ${title} last updated ${updatedAt}`
     );
 
-    if (totalIssues < MIN_ISSUES_IN_MILESTONE) {
-      core.info(
-        `Skipping closing ${title} because it has less than ${MIN_ISSUES_IN_MILESTONE} issues`
-      );
-      return;
-    }
     if (openIssues > 0) {
       core.info(`Skipping closing ${title} because it has open issues/prs`);
       return;
