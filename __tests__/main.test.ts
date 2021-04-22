@@ -1,8 +1,3 @@
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import {Octokit} from '@octokit/rest';
-import moment from 'moment';
-
 import {
   MilestoneProcessor,
   MilestoneProcessorOptions
@@ -106,7 +101,7 @@ test('should not create a <2 day sprint', async () => {
   expect(milestonesToAdd[6].title).toEqual('🍊  Orange');
 });
 
-test('single milestone list results in 7 created', async () => {
+test('single milestone list with future due date results in 7 created', async () => {
   // June 1 2020
   const now = DUCK && DUCK.firstDueDate.clone().subtract(3, 'days');
 
@@ -133,7 +128,7 @@ test('single milestone list results in 7 created', async () => {
   // Process the list
   const {milestonesToAdd} = await processor.processMilestones(1);
 
-  expect(processor.closedMilestones.length).toEqual(1);
+  expect(processor.closedMilestones.length).toEqual(0);
   expect(milestonesToAdd.length).toEqual(7);
   expect(milestonesToAdd[0].title).toEqual('🥚  Egg');
   expect(milestonesToAdd[1].title).toEqual('🥏  Frisbee');
@@ -177,7 +172,7 @@ test('single milestone list in future cycle results in 6 created', async () => {
     1
   );
 
-  expect(processor.closedMilestones.length).toEqual(1);
+  expect(processor.closedMilestones.length).toEqual(0);
   expect(milestonesToAdd.length).toEqual(6);
   expect(milestonesToAdd[0].title).toEqual('🦞  Lobster');
   expect(milestonesToAdd[1].title).toEqual('🗺  Map');
