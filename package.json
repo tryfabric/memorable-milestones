@@ -1,6 +1,6 @@
 {
   "name": "memorable-milestones",
-  "version": "1.1.4",
+  "version": "2.0.0",
   "private": true,
   "description": "Puts milestones on auto-pilot with memorable emoji names",
   "main": "lib/main.js",
