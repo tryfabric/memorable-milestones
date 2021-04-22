@@ -162,6 +162,11 @@ export class MilestoneProcessor {
       core.info(`Skipping closing ${title} because it has open issues/prs`);
       return;
     }
+    const dueOn = milestone.due_on && moment(milestone.due_on);
+    if (dueOn && dueOn.isAfter(this.now)) {
+      core.info(`Skipping closing ${title} because it is in the future`);
+      return;
+    }
     // Close instantly because there isn't a good way to tag milestones
     // and do another pass.
     return await this.closeMilestone(milestone);
