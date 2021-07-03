@@ -167,4 +167,4 @@ $ npm test
 
 ---
 
-Built with 💙 by the team behind [Fabric](https://tryfabric.com) ⚡️.
+Built with 💙 by the team behind [Fabric](https://tryfabric.com).
