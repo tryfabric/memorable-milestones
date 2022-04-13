@@ -11,8 +11,10 @@ async function run(): Promise<void> {
     const processor: MilestoneProcessor = new MilestoneProcessor(args);
     await processor.processMilestones();
   } catch (error) {
-    core.error(error.toString());
-    core.setFailed(error.message);
+    if (error instanceof Error) {
+      core.error(error.toString());
+      core.setFailed(error.message);
+    }
   }
 }
 

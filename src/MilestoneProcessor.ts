@@ -42,8 +42,8 @@ export interface MilestoneCreationParams {
 export class MilestoneProcessor {
   readonly client: github.GitHub;
   readonly options: MilestoneProcessorOptions;
-  private operationsLeft: number = 0;
-  private currentGlobalMilestoneIds: GlobalMilestone['id'][];
+  private operationsLeft = 0;
+  private currentGlobalMilestoneIds: Array<GlobalMilestone['id']>;
   private milestoneTitleToGlobalMilestoneIdMap: Map<
     Milestone['title'],
     GlobalMilestone['id']
@@ -92,7 +92,7 @@ export class MilestoneProcessor {
 
   // Process a page of milestones.
   // TODO: Make iterative.
-  async processMilestones(page: number = 1): Promise<any> {
+  async processMilestones(page = 1): Promise<any> {
     if (this.operationsLeft <= 0) {
       core.warning('Reached max number of operations to process. Exiting.');
       return 0;

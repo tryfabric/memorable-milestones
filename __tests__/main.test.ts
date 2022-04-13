@@ -16,7 +16,7 @@ function generateMilestone(
   updatedAt: string,
   openIssues: number,
   closedIssues: number,
-  isClosed: boolean = false,
+  isClosed = false,
   dueOn: string
 ): Milestone {
   return {
@@ -149,7 +149,6 @@ test('single milestone list in future cycle results in 6 created', async () => {
       .add(16 * 3, 'weeks')
       .subtract(9, 'days');
   console.log('\n\n\n\nnow', now && now.toDate());
-  const ORANGE = GLOBAL_MILESTONES_MAP.get('ORANGE');
 
   const dueDate =
     ORANGE &&
@@ -168,9 +167,7 @@ test('single milestone list in future cycle results in 6 created', async () => {
   );
 
   // Process the list
-  const {operationsLeft, milestonesToAdd} = await processor.processMilestones(
-    1
-  );
+  const {milestonesToAdd} = await processor.processMilestones(1);
 
   expect(processor.closedMilestones.length).toEqual(0);
   expect(milestonesToAdd.length).toEqual(6);
@@ -311,9 +308,9 @@ function _getFirstDueDate(globalMilestone?: GlobalMilestone) {
 }
 
 function _quickGenerateMilestone(
-  title: string = 'title',
-  isClosed: boolean = false,
-  dueOn: string = '2020-06-04T12:00:00Z'
+  title = 'title',
+  isClosed = false,
+  dueOn = '2020-06-04T12:00:00Z'
 ) {
   return generateMilestone(
     1234,
