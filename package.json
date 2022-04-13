@@ -28,7 +28,7 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^2.1.1",
     "@octokit/rest": "^16.43.1",
-    "moment": "^2.25.1",
+    "moment": "^2.29.2",
     "semver": "^6.1.1"
   },
   "devDependencies": {
